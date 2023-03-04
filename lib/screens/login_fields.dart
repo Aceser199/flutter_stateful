@@ -17,6 +17,7 @@ Widget passwordField() {
       labelText: 'Password',
       icon: Icon(Icons.lock),
     ),
+    validator: (value) {},
   );
 }
 
@@ -24,6 +25,6 @@ Widget submitButton() {
   return ElevatedButton.icon(
     onPressed: () {},
     icon: const Icon(Icons.login),
-    label: const Text('Login'),
+    label: const Text('SIGN IN'),
   );
 }
