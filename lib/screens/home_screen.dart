@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_temp/widgets/todos/todo_list.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -10,7 +9,7 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Home Screen'),
       ),
-      body: const ToDoList(),
+      body: const Text('Home Screen'),
     );
   }
 }
