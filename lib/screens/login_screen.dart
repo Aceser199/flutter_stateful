@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_temp/mixins/validation_mixin.dart';
 import 'package:flutter_temp/utils/email_validator.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -8,8 +9,11 @@ class LoginScreen extends StatefulWidget {
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _LoginScreenState extends State<LoginScreen> with ValidationMixin {
   final formKey = GlobalKey<FormState>();
+
+  String email = '';
+  String password = '';
 
   @override
   Widget build(BuildContext context) {
@@ -41,19 +45,9 @@ class _LoginScreenState extends State<LoginScreen> {
         hintText: 'you@example.com',
         icon: Icon(Icons.email),
       ),
-      validator: (value) {
-        if (value == null) {
-          return 'please enter an email address';
-        }
-        if (value.isEmpty) {
-          return 'Please enter an email address';
-        }
-
-        if (!value.isValidEmail()) {
-          return "Invalid email address";
-        }
-
-        return null;
+      validator: validateEmail,
+      onSaved: (String? newValue) {
+        email = newValue.toString();
       },
     );
   }
@@ -65,20 +59,9 @@ class _LoginScreenState extends State<LoginScreen> {
         labelText: 'Password',
         icon: Icon(Icons.lock),
       ),
-      validator: (value) {
-        if (value == null) {
-          return 'please enter a password';
-        }
-        if (value.isEmpty) {
-          return 'Please enter a password';
-        }
-        int minLength = 3;
-
-        if (value.length < minLength) {
-          return 'Password needs to be at least $minLength characters long';
-        }
-
-        return null;
+      validator: validatePassword,
+      onSaved: (String? newValue) {
+        password = newValue.toString();
       },
     );
   }
@@ -97,6 +80,8 @@ class _LoginScreenState extends State<LoginScreen> {
       return;
     }
     formKey.currentState?.save();
+
+    print('$email & $password');
 
     formKey.currentState?.reset();
   }
